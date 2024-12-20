@@ -7,7 +7,9 @@ import authRoutes from './routes/auth.js';
 import absenceRoutes from './routes/absenceRoutes.js';
 import cahierClasseRoutes from './routes/cahierClasseRoutes.js';
 import chargeHoraireRoutes from './routes/chargeHoraireRoutes.js';
-import reclamationRoutes from './routes/reclamationRoutes.js';  // Import des routes des réclamations
+import reclamationRoutes from './routes/reclamationRoutes.js';  
+import passwordRoutes from './routes/passwordRoutes.js';  
+
 import { authenticateJWT } from './middelwares/authMiddleware.js';
 
 dotenv.config();
@@ -42,7 +44,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/absences', authenticateJWT, absenceRoutes);
 app.use('/api/cahierClasse', authenticateJWT, cahierClasseRoutes);
 app.use('/api/chargeHoraire', authenticateJWT, chargeHoraireRoutes);
-app.use('/api/reclamations', authenticateJWT, reclamationRoutes);  // Ajout des routes des réclamations
+app.use('/api/reclamations', authenticateJWT, reclamationRoutes); 
+app.use('/api/pwd', passwordRoutes);
+
 
 // Démarrer le serveur
 app.listen(port, hostname, () => {

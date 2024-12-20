@@ -1,15 +1,16 @@
 import express from 'express';
-import { getReclamationsByEnseignant, deleteReclamation, repondreReclamation } from '../controllers/reclamationController.js';
+import { getReclamationsByEnseignant, deleteReclamation, repondreReclamation, createReclamation } from '../controllers/reclamationController.js';
+import { authenticateJWT, verifyEnseignant } from '../middelwares/authMiddleware.js'; // Correction du nom du dossier
 
 const router = express.Router();
 
-// Route pour obtenir toutes les réclamations pour un enseignant
-router.get('/', getReclamationsByEnseignant);
+// Corrected route for getting all reclamations for an enseignant
+router.get('/', authenticateJWT, verifyEnseignant, getReclamationsByEnseignant);
+router.post('/', authenticateJWT, verifyEnseignant, createReclamation);
 
-// Route pour supprimer une réclamation
-router.delete('/:id', deleteReclamation);
+// Other routes...
+router.delete('/:id', authenticateJWT, verifyEnseignant, deleteReclamation);
+router.put('/:id/repondre', authenticateJWT, verifyEnseignant, repondreReclamation);
 
-// Route pour répondre à une réclamation
-router.put('/:id/repondre', repondreReclamation);
 
 export default router;
